@@ -62,6 +62,8 @@ class Flowdock extends Adapter
     @stream.on 'message', (message) =>
       if message.event == 'user-edit'
         @changeUserNick(message.content.user.id, message.content.user.nick)
+      if message.event == 'message-delete'
+        @bot.delete(message.flow, message.organization, message.id)
       return unless message.event in ['message', 'comment']
       if message.event == 'message'
         messageId = message.id
